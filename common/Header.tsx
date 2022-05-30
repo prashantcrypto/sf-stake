@@ -34,7 +34,7 @@ export const Header = () => {
 
   return (
     <div>
-      <div className="bg-forestGreen p-1.5">
+      <div className="bg-forestGreen-200 p-1.5">
             <h2 
                 className="text-gray-200 text-sm text-center tracking-tighter uppercase font-semibold">
                 Stoned 
