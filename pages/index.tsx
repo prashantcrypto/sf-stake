@@ -81,8 +81,8 @@ function Home() {
         <meta name="description" content="Stoned Farms Staking" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div>
+      <div className='bgImage'></div>
+      <div className='relative'>
         
         <Header />
         <div

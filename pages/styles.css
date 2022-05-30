@@ -17,3 +17,13 @@ body {
   font-style: normal;
   font-weight: 700;
 }
+
+.bgImage {
+  position: fixed;
+  opacity:0.02;
+  background-image: url('../public/BGImage.png');
+  background-size: cover;
+  height:100%;
+  width:100%;
+  
+}
