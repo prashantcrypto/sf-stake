@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Kanit:ital@0;1&family=Oswald:wght@200;300;400;500&display=swap');
 
 body {
-  font-family: SFHello, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  background-color: rgb(26, 27, 32) !important;
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+  --tw-gradient-from: #1a2721;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, #1a2721);
+  font-family: fot-udmincho-pr6n, serif;
+  font-style: normal;
+  font-weight: 700;
 }

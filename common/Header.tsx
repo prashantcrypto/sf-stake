@@ -45,7 +45,7 @@ export const Header = () => {
                 : ''
             }`
           }
-          className="flex cursor-pointer text-xl font-semibold text-white hover:text-gray-400"
+          className="flex cursor-pointer text-xl font-semibold text-white hover:text-gray-300"
         >
           {stakePoolMetadata?.imageUrl ? (
             <img className="h-[35px]" src={stakePoolMetadata?.imageUrl} />
