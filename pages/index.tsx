@@ -83,6 +83,7 @@ function Home() {
       </Head>
 
       <div>
+        
         <Header />
         <div
           className="container mx-auto w-full px-5"

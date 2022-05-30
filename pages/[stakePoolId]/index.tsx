@@ -314,7 +314,7 @@ function Home() {
       </Head>
 
       <Header />
-      <div className={`container mx-auto w-full`}>
+      <div className={`container mx-auto w-full mt-16`}>
         {!stakePool && stakePoolLoaded ? (
           <div className="mx-5 mb-5 rounded-md border-[1px] border-white bg-forestGreen bg-opacity-40 p-4 text-center text-lg font-semibold">
             Stake pool not found
