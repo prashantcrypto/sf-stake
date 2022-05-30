@@ -702,7 +702,7 @@ function Home() {
                 <span className="mr-1 inline-block">
                   {loadingStake && <LoadingSpinner height="25px" />}
                 </span>
-                <span className="my-auto">Stake Tokens</span>
+                <span className="my-auto">Stake Goats</span>
               </button>
             </div>
           </div>
@@ -712,7 +712,7 @@ function Home() {
             <div className="mb-5 flex flex-row justify-between">
               <div className="mt-2 flex flex-row">
                 <p className="mr-3 text-lg">
-                  View Staked Tokens{' '}
+                  View Staked Goats{' '}
                   {stakedTokenDatas.loaded &&
                     stakedTokenDatas.data &&
                     `(${stakedTokenDatas.data.length})`}
