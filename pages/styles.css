@@ -7,6 +7,7 @@ body {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
   --tw-gradient-from: #1a2721;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, #1a2721);
+  background-color:#1a2721 !important;
   font-family: fot-udmincho-pr6n, serif;
   font-style: normal;
   font-weight: 700;
