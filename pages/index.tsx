@@ -139,7 +139,7 @@ function Home() {
                         {stakePool.stakePoolMetadata?.imageUrl && (
                           <img
                             className="max-h-[150px] rounded-md"
-                            src={stakePool.stakePoolMetadata.imageUrl}
+                            src='stoned.png'
                             alt={stakePool.stakePoolMetadata.name}
                           />
                         )}

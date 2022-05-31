@@ -27,3 +27,27 @@ body {
   width:100%;
   
 }
+
+#desktopLogos {
+  height:24px;
+  width:24px;
+}
+
+@media (max-width: 950px) { 
+  #desktopLogos {
+      display:none !important;
+  }
+}
+
+.wallet-adapter-button.css-1s4w1et {
+  color:black !important;
+  font-family: fot-udmincho-pr6n, serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.wallet-adapter-button {
+  font-family: fot-udmincho-pr6n, serif;
+  font-style: normal;
+  font-weight: 700;
+}
