@@ -15,7 +15,7 @@ export const Footer = ({
 }) => {
   return (
     <div
-      className="mt-10 px-10 pt-5 md:px-32"
+      className="mt-10 px-10 pt-5 md:px-32 "
     >
       <div className="flex w-full flex-wrap items-start justify-between gap-10 py-10">
         <div className="flex gap-10 self-end text-center md:gap-20">
@@ -48,10 +48,10 @@ export const Footer = ({
         </div>
       </div>
       <div
-        className="text-md flex items-center justify-between border-t border-white py-8 text-gray-400"
+        className="text-md flex items-center justify-between border-t border-white py-4 text-gray-400 "
       >
-        <div className="flex items-center justify-center gap-2 text-gray-400">
-          Stoned Farms
+        <div className="flex items-center justify-center gap-2 text-gray-400" >
+          <img className="h-16 w-42" src='SFFooterWhite.png' />
         </div>
         <div className="flex gap-4 text-gray-100">
           {Object.entries(SOCIALS).map(([id, { icon, link }]) => {
@@ -61,7 +61,7 @@ export const Footer = ({
                 href={link}
                 target="_blank"
                 rel="noreferrer"
-                className={`hover:text-primary text-gray-400 opacity-100 transition-opacity hover:text-gray-200`}
+                className={`hover:text-primary text-white text-2xl opacity-100 transition-opacity hover:text-gray-200`}
               >
                 {icon}
               </a>

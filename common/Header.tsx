@@ -49,23 +49,12 @@ export const Header = () => {
           <div className="flex items-center gap-3">
             <a
               target="_blank"
-              href={
-                stakePoolMetadata?.websiteUrl ||
-                `/${
-                  ctx.environment.label !== 'mainnet-beta'
-                    ? `?cluster=${ctx.environment.label}`
-                    : ''
-                }`
-              }
+              href="https://stonedfarms.io/"
               className="flex cursor-pointer text-xl font-semibold text-black hover:text-gray-300"
             >
-              {stakePoolMetadata?.imageUrl ? (
+              
                 <img className="h-7 w-44 lg:h-8 lg:w-52" src='SFHeader.png' />
-              ) : (
-                <TitleText>
-                  <img className="h-7 w-44 lg:h-8 lg:w-52" src='SFHeader.png' />
-                </TitleText>
-              )}
+         
             </a>
             {ctx.environment.label !== 'mainnet-beta' && (
               <div className="cursor-pointer rounded-md bg-[#9945ff] p-1 text-[10px] italic text-black">
