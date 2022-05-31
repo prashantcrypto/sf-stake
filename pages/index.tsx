@@ -89,7 +89,7 @@ function Home() {
           className="container mx-auto w-full px-16 relative "
           style={{ minHeight: 'calc(100vh - 325px)' }}
         >
-          <div className="mb-5 text-lg font-bold pt-48">
+          <div className="mb-5 text-lg font-bold pt-28">
           </div>
           <div className="md:max-w-xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-1 ">
             {!stakePoolsLoaded ? (
