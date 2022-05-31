@@ -82,16 +82,16 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='bgImage'></div>
-      <div className='relative'>
+      <div className=' '>
         
         <Header />
         <div
-          className="container mx-auto w-full px-5"
+          className="container mx-auto w-full px-16 relative "
           style={{ minHeight: 'calc(100vh - 325px)' }}
         >
-          <div className="mt-10 mb-5 text-lg font-bold">
+          <div className="mb-5 text-lg font-bold pt-48">
           </div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-1">
+          <div className="md:max-w-xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-1 ">
             {!stakePoolsLoaded ? (
               <>
                 <Placeholder />
@@ -120,7 +120,7 @@ function Home() {
                         )
                       }
                     >
-                      <div className="text-center font-bold">
+                      <div className="text-center font-bold ">
                         Stake Your Goat
                       </div>
                       <div className="text-gray text-center">

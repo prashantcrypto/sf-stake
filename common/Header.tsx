@@ -47,7 +47,7 @@ export const Header = () => {
       <div className='bg-white'>
         <div className={`flex h-20 justify-between max-w-7xl mx-auto px-2 text-black`}>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 -mt-1">
             <a
               target="_blank"
               href="https://stonedfarms.io/"
