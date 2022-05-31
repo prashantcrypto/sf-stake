@@ -81,10 +81,11 @@ function Home() {
         <meta name="description" content="Stoned Farms Staking" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className='bgImage'></div>
+      
       <div className=' '>
         
         <Header />
+        <div className='bgImage'></div>
         <div
           className="container mx-auto w-full px-16 relative "
           style={{ minHeight: 'calc(100vh - 325px)' }}
