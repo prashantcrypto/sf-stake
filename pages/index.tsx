@@ -85,14 +85,14 @@ function Home() {
       <div className=' '>
         
         <Header />
-        <div className='bgImage'></div>
+        <div className='bgImage -mt-12'></div>
         <div
           className="container mx-auto w-full px-16 relative "
           style={{ minHeight: 'calc(100vh - 325px)' }}
         >
-          <div className="mb-5 text-lg font-bold pt-28">
+          <div className="mb-5 text-lg font-bold mt-16">
           </div>
-          <div className="md:max-w-xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-1 ">
+          <div className="md:max-w-xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             {!stakePoolsLoaded ? (
               <>
                 <Placeholder />
@@ -107,7 +107,7 @@ function Home() {
                 (stakePool) =>
                   !stakePool.stakePoolMetadata?.hidden && (
                     <div
-                      className="flex h-[300px] cursor-pointer flex-col rounded-lg bg-forestGreen bg-opacity-40 border-white border  p-10 transition-all duration-100 hover:scale-[1.01]"
+                      className="flex h-[300px] cursor-pointer flex-col rounded-lg bg-forestGreen bg-opacity-40 border-white border py-10 px-5 transition-all duration-100 hover:scale-[1.01]"
                       onClick={() =>
                         router.push(
                           `/${
