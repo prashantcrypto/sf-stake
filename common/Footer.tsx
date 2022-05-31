@@ -15,9 +15,9 @@ export const Footer = ({
 }) => {
   return (
     <div
-      className="mt-10 px-10 pt-5 md:px-32 "
+      className="mt-5 px-10 pt-5 pb-5 md:px-32 "
     >
-      <div className="flex w-full flex-wrap items-start justify-between gap-10 py-10">
+      <div className="flex w-full flex-wrap items-start justify-between gap-10 pt-10">
         <div className="flex gap-10 self-end text-center md:gap-20">
           <span className="flex flex-col items-start gap-1">
             {/*<a href="" className="text-gray-400">
@@ -48,7 +48,7 @@ export const Footer = ({
         </div>
       </div>
       <div
-        className="text-md flex items-center justify-between border-t border-white py-4 text-gray-400 "
+        className="text-md flex items-center justify-between border-t border-white py-4 text-gray-400 pt-8"
       >
         <div className="flex items-center justify-center gap-2 text-gray-400 -mt-1 z-50">
             <a
