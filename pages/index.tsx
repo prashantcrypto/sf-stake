@@ -85,7 +85,7 @@ function Home() {
       <div className=' '>
         
         <Header />
-        <div className='bgImage -mt-12'></div>
+        <div className='bgImage -mt-20'></div>
         <div
           className="container mx-auto w-full px-16 relative "
           style={{ minHeight: 'calc(100vh - 325px)' }}
