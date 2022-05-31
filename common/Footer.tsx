@@ -50,8 +50,16 @@ export const Footer = ({
       <div
         className="text-md flex items-center justify-between border-t border-white py-4 text-gray-400 "
       >
-        <div className="flex items-center justify-center gap-2 text-gray-400" >
-          <img className="h-16 w-42" src='SFFooterWhite.png' />
+        <div className="flex items-center justify-center gap-2 text-gray-400 -mt-1 z-50">
+            <a
+              target="_blank"
+              href="https://stonedfarms.io/"
+              className="flex cursor-pointer text-xl font-semibold text-black hover:text-gray-300"
+            >
+              
+                <img className="h-16 w-42" src='SFFooterWhite.png' />
+         
+            </a>
         </div>
         <div className="flex gap-4 text-gray-100">
           {Object.entries(SOCIALS).map(([id, { icon, link }]) => {
