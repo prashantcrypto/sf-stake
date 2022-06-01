@@ -107,7 +107,7 @@ function Home() {
                 (stakePool) =>
                   !stakePool.stakePoolMetadata?.hidden && (
                     <div
-                      className="flex h-[300px] cursor-pointer flex-col rounded-lg bg-forestGreen bg-opacity-40 border-white border py-10 px-5 transition-all duration-100 hover:scale-[1.01]"
+                      className="flex h-[300px] cursor-pointer flex-col rounded-lg bg-forestGreen bg-opacity-40 border-white border py-10 px-5 md:px-28 transition-all duration-100 hover:scale-[1.01]"
                       onClick={() =>
                         router.push(
                           `/${
