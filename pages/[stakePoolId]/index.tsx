@@ -517,7 +517,7 @@ function Home() {
                                     </div>
                                   )}
                                   <img
-                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain md:h-40 md:w-40 2xl:h-48 2xl:w-48"
+                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain md:h-20 md:w-20 2xl:h-48 2xl:w-48"
                                     src={
                                       tk.metadata?.data.image ||
                                       tk.tokenListData?.logoURI
