@@ -367,7 +367,7 @@ function Home() {
                     Percent Staked:{' '}
                     {stakePoolEntries.data?.length &&
                       Math.floor(
-                        ((stakePoolEntries.data?.length * 100) / 512/*maxStaked*/) *
+                        ((stakePoolEntries.data?.length * 100) / 262/*maxStaked*/) *
                           10000
                       ) / 10000}
                     %
@@ -506,7 +506,7 @@ function Home() {
                                 <div className="relative">
                                   {loadingStake && isUnstakedTokenSelected(tk) && (
                                     <div>
-                                      <div className="absolute top-0 left-0 z-10 flex md:h-20 md:w-20 2xl:h-48 2xl:w-48 justify-center rounded-xl bg-black bg-opacity-80 align-middle">
+                                      <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-xl bg-black bg-opacity-80 align-middle">
                                         <div className="my-auto flex">
                                           <span className="mr-2">
                                             <LoadingSpinner height="25px" />
@@ -517,7 +517,7 @@ function Home() {
                                     </div>
                                   )}
                                   <img
-                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain md:h-20 md:w-20 2xl:h-48 2xl:w-48"
+                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain md:h-40 md:w-40 2xl:h-48 2xl:w-48"
                                     src={
                                       tk.metadata?.data.image ||
                                       tk.tokenListData?.logoURI
