@@ -309,7 +309,7 @@ function Home() {
     <div style={{ background: "#1a2721"}}>
       <Head>
         <title>Stoned Farms</title>
-        <meta name="description" content="Stoned Farms Staking />
+        <meta name="description" content="Stoned Farms Staking" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
