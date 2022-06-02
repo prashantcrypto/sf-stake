@@ -506,7 +506,7 @@ function Home() {
                                 <div className="relative">
                                   {loadingStake && isUnstakedTokenSelected(tk) && (
                                     <div>
-                                      <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-xl bg-black bg-opacity-80 align-middle">
+                                      <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80 align-middle">
                                         <div className="my-auto flex">
                                           <span className="mr-2">
                                             <LoadingSpinner height="25px" />
@@ -517,7 +517,7 @@ function Home() {
                                     </div>
                                   )}
                                   <img
-                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain h-22 w-22 lg:h-44 lg:w-44 2xl:h-48 2xl:w-48"
+                                    className="mx-auto mt-4 mb-2 bg-white bg-opacity-5 object-contain h-22 w-22 lg:h-44 lg:w-44 2xl:h-48 2xl:w-48"
                                     src={
                                       tk.metadata?.data.image ||
                                       tk.tokenListData?.logoURI
@@ -778,7 +778,7 @@ function Home() {
                                     {(loadingUnstake || loadingClaimRewards) &&
                                       isStakedTokenSelected(tk) && (
                                         <div>
-                                          <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80  align-middle">
+                                          <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80  align-middle">
                                             <div className="mx-auto flex items-center justify-center">
                                               <span className="mr-2">
                                                 <LoadingSpinner height="25px" />
@@ -793,7 +793,7 @@ function Home() {
                                     {tk.stakeEntry?.parsed.lastStaker.toString() !==
                                       wallet.publicKey?.toString() && (
                                       <div>
-                                        <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80  align-middle">
+                                        <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80  align-middle">
                                           <div className="mx-auto flex flex-col items-center justify-center">
                                             <div>Owned by</div>
                                             <DisplayAddress
