@@ -767,7 +767,7 @@ function Home() {
                     {stakedTokenDatas.data &&
                       stakedTokenDatas.data.map((tk) => (
                         <div key={tk?.stakeEntry?.pubkey.toBase58()}>
-                          <div className="relative w-44 md:w-auto 2xl:w-48">
+                          <div className="relative w-22 lg:w-44 md:w-auto 2xl:w-48">
                             <label
                               htmlFor={tk?.stakeEntry?.pubkey.toBase58()}
                               className="relative"
@@ -793,7 +793,7 @@ function Home() {
                                     {tk.stakeEntry?.parsed.lastStaker.toString() !==
                                       wallet.publicKey?.toString() && (
                                       <div>
-                                        <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80  align-middle">
+                                        <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80 align-middle">
                                           <div className="mx-auto flex flex-col items-center justify-center">
                                             <div>Owned by</div>
                                             <DisplayAddress
@@ -808,7 +808,7 @@ function Home() {
                                       </div>
                                     )}
                                     <img
-                                      className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain h-22 w-22 lg:h-44 lg:w-44 2xl:h-48 2xl:w-48"
+                                      className="mx-auto mt-4 mb-2 bg-white bg-opacity-5 object-contain h-22 w-22 lg:h-44 lg:w-44 2xl:h-48 2xl:w-48"
                                       src={
                                         tk.metadata?.data.image ||
                                         tk.tokenListData?.logoURI
