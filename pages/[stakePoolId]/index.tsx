@@ -496,7 +496,7 @@ function Home() {
                   >
                     {(filteredTokens || []).map((tk) => (
                       <div key={tk.tokenAccount?.pubkey.toString()}>
-                        <div className="relative w-44 md:w-auto 2xl:w-48">
+                        <div className="relative w-22 lg:w-44 md:w-auto 2xl:w-48">
                           <label
                             htmlFor={tk?.tokenAccount?.pubkey.toBase58()}
                             className="relative"
@@ -517,7 +517,7 @@ function Home() {
                                     </div>
                                   )}
                                   <img
-                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain md:h-40 md:w-40 2xl:h-48 2xl:w-48"
+                                    className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain h-20 w-20 lg:h-40 lg:w-40 2xl:h-48 2xl:w-48"
                                     src={
                                       tk.metadata?.data.image ||
                                       tk.tokenListData?.logoURI
