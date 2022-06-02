@@ -767,7 +767,7 @@ function Home() {
                     {stakedTokenDatas.data &&
                       stakedTokenDatas.data.map((tk) => (
                         <div key={tk?.stakeEntry?.pubkey.toBase58()}>
-                          <div className="relative w-44 md:w-auto 2xl:w-48">
+                          <div className="relative w-20 lg:w-40 2xl:w-48">
                             <label
                               htmlFor={tk?.stakeEntry?.pubkey.toBase58()}
                               className="relative"
@@ -778,7 +778,7 @@ function Home() {
                                     {(loadingUnstake || loadingClaimRewards) &&
                                       isStakedTokenSelected(tk) && (
                                         <div>
-                                          <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80  align-middle">
+                                          <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80 align-middle">
                                             <div className="mx-auto flex items-center justify-center">
                                               <span className="mr-2">
                                                 <LoadingSpinner height="25px" />
@@ -808,7 +808,7 @@ function Home() {
                                       </div>
                                     )}
                                     <img
-                                      className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain md:h-40 md:w-40 2xl:h-48 2xl:w-48"
+                                      className="mx-auto mt-4 mb-2 rounded-xl bg-white bg-opacity-5 object-contain h-20 w-20 lg:h-40 lg:w-40 2xl:h-48 2xl:w-48"
                                       src={
                                         tk.metadata?.data.image ||
                                         tk.tokenListData?.logoURI
