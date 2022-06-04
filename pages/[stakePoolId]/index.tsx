@@ -368,8 +368,8 @@ function Home() {
                     {stakePoolEntries.data?.length &&
                       Math.floor(
                         ((stakePoolEntries.data?.length * 100) / 705/*maxStaked*/) *
-                          10000
-                      ) / 10000}
+                          100
+                      ) / 100}
                     %
                   </div>
                 )}
