@@ -367,7 +367,7 @@ function Home() {
                     Percent Staked:{' '}
                     {stakePoolEntries.data?.length &&
                       Math.floor(
-                        ((stakePoolEntries.data?.length * 100) / 705/*maxStaked*/) *
+                        ((stakePoolEntries.data?.length * 100) / 725/*maxStaked*/) *
                           100
                       ) / 100}
                     %
