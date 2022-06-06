@@ -69,7 +69,7 @@ export const Footer = ({
                 href={link}
                 target="_blank"
                 rel="noreferrer"
-                className={`hover:text-primary text-white text-2xl opacity-100 transition-opacity hover:text-gray-200`}
+                className={`hover:text-primary text-white text-2xl opacity-100 transition-opacity hover:text-gray-200 z-50`}
               >
                 {icon}
               </a>
