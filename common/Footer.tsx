@@ -2,7 +2,7 @@ import { darken, lighten } from 'polished'
 import { FaDiscord, FaGithub, FaMedium, FaTwitter } from 'react-icons/fa'
 
 const SOCIALS = {
-  discord: { icon: <FaDiscord />, link: 'https://discord.gg/stonedfarms' },
+  discord: { icon: <FaDiscord />, link: 'https://discord.gg/s7DKM92pt9' },
   twitter: { icon: <FaTwitter />, link: 'https://twitter.com/stonedfarms' },
 }
 
