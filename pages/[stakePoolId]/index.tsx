@@ -150,16 +150,14 @@ function Home() {
           !token.stakeEntry?.parsed.cooldownStartSeconds
         ) {
           notify({
-            message: `Cooldown period initiated ${step + 1}/${
-              stakedSelected.length
-            }`,
+            message: `Cooldown period initiated ${step + 1}/${stakedSelected.length
+              }`,
             type: 'success',
           })
         } else {
           notify({
-            message: `Successfully unstaked ${step + 1}/${
-              stakedSelected.length
-            }`,
+            message: `Successfully unstaked ${step + 1}/${stakedSelected.length
+              }`,
             type: 'success',
           })
         }
@@ -239,13 +237,13 @@ function Home() {
 
         const amount = token?.amountToStake
           ? new BN(
-              token?.amountToStake && token.tokenListData
-                ? parseMintNaturalAmountFromDecimal(
-                    token?.amountToStake,
-                    token.tokenListData.decimals
-                  ).toString()
-                : 1
-            )
+            token?.amountToStake && token.tokenListData
+              ? parseMintNaturalAmountFromDecimal(
+                token?.amountToStake,
+                token.tokenListData.decimals
+              ).toString()
+              : 1
+          )
           : undefined
         // stake
         const transaction = await stake(connection, wallet as Wallet, {
@@ -306,15 +304,15 @@ function Home() {
     )
 
   return (
-    <div style={{ background: "#1a2721"}}>
+    <div style={{ background: "#1a2721" }}>
       <Head>
         <title>Stoned Farms</title>
         <meta name="description" content="Stoned Farms Staking" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
+
       <Header />
-      
+
       <div className={`container mx-auto w-full mt-10`}>
         {!stakePool && stakePoolLoaded ? (
           <div className="mx-5 mb-5 rounded-md border-[1px] border-white bg-forestGreen bg-opacity-40 p-4 text-center text-lg font-semibold">
@@ -368,7 +366,7 @@ function Home() {
                     {stakePoolEntries.data?.length &&
                       Math.floor(
                         ((stakePoolEntries.data?.length * 100) / 2007/*maxStaked*/) *
-                          100
+                        100
                       ) / 100}
                     %
                   </div>
@@ -396,7 +394,7 @@ function Home() {
                       86400 *
                       (rewardDistributorData.data.parsed.defaultMultiplier.toNumber() /
                         10 **
-                          rewardDistributorData.data.parsed.multiplierDecimals)
+                        rewardDistributorData.data.parsed.multiplierDecimals)
                     ).toPrecision(4)}{' '}
                     <a
                       className="text-white underline hover:text-forestGreen-50"
@@ -557,12 +555,11 @@ function Home() {
                                     ? 'text'
                                     : 'checkbox'
                                 }
-                                className={`absolute h-4 ${
-                                  tk.tokenAccount?.account.data.parsed.info
-                                    .tokenAmount.amount > 1
-                                    ? `w-20 py-3 px-2 text-right`
-                                    : 'w-4'
-                                } top-2 right-2 rounded-sm font-medium text-black focus:outline-none`}
+                                className={`absolute h-4 ${tk.tokenAccount?.account.data.parsed.info
+                                  .tokenAmount.amount > 1
+                                  ? `w-20 py-3 px-2 text-right`
+                                  : 'w-4'
+                                  } top-2 right-2 rounded-sm font-medium text-black focus:outline-none`}
                                 id={tk?.tokenAccount?.pubkey.toBase58()}
                                 name={tk?.tokenAccount?.pubkey.toBase58()}
                                 checked={isUnstakedTokenSelected(tk)}
@@ -658,11 +655,10 @@ function Home() {
                     >
                       <span className="sr-only">Receipt Type</span>
                       <span
-                        className={`${
-                          receiptType === ReceiptType.Original
-                            ? 'translate-x-6'
-                            : 'translate-x-1'
-                        } inline-block h-4 w-4 transform rounded-full bg-white`}
+                        className={`${receiptType === ReceiptType.Original
+                          ? 'translate-x-6'
+                          : 'translate-x-1'
+                          } inline-block h-4 w-4 transform rounded-full bg-white`}
                       />
                     </Switch>
                     <div className="flex items-center gap-1">
@@ -687,6 +683,12 @@ function Home() {
                   if (unstakedSelected.length === 0) {
                     notify({
                       message: `No tokens selected`,
+                      type: 'error',
+                    })
+                  }
+                  if (stakePoolEntries.length > 1000) {
+                    notify({
+                      message: `Max Beavers Staked Right Now`,
                       type: 'error',
                     })
                   }
@@ -726,7 +728,7 @@ function Home() {
               </div>
               <div className="flex flex-col justify-evenly">
                 {stakePool?.parsed.cooldownSeconds &&
-                stakePool?.parsed.cooldownSeconds !== 0 ? (
+                  stakePool?.parsed.cooldownSeconds !== 0 ? (
                   <div className="flex flex-col">
                     <p className="mr-3 text-sm">
                       Cooldown Period: {stakePool?.parsed.cooldownSeconds} secs
@@ -736,7 +738,7 @@ function Home() {
                   ''
                 )}
                 {stakePool?.parsed.minStakeSeconds &&
-                stakePool?.parsed.minStakeSeconds !== 0 ? (
+                  stakePool?.parsed.minStakeSeconds !== 0 ? (
                   <div className="flex flex-col">
                     <p className="mr-3 text-sm">
                       Minimum Stake Seconds: {stakePool?.parsed.minStakeSeconds}{' '}
@@ -792,21 +794,21 @@ function Home() {
                                       )}
                                     {tk.stakeEntry?.parsed.lastStaker.toString() !==
                                       wallet.publicKey?.toString() && (
-                                      <div>
-                                        <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80 align-middle">
-                                          <div className="mx-auto flex flex-col items-center justify-center">
-                                            <div>Owned by</div>
-                                            <DisplayAddress
-                                              dark
-                                              connection={connection}
-                                              address={
-                                                tk.stakeEntry?.parsed.lastStaker
-                                              }
-                                            />
+                                        <div>
+                                          <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center bg-black bg-opacity-80 align-middle">
+                                            <div className="mx-auto flex flex-col items-center justify-center">
+                                              <div>Owned by</div>
+                                              <DisplayAddress
+                                                dark
+                                                connection={connection}
+                                                address={
+                                                  tk.stakeEntry?.parsed.lastStaker
+                                                }
+                                              />
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    )}
+                                      )}
                                     <img
                                       className="mx-auto mt-4 mb-2 bg-white bg-opacity-5 object-contain h-22 w-22 lg:h-44 lg:w-44 2xl:h-48 2xl:w-48"
                                       src={
@@ -839,13 +841,13 @@ function Home() {
                                   placeholder={
                                     tk.stakeEntry!.parsed.amount.toNumber() > 1
                                       ? Number(
-                                          getMintDecimalAmountFromNaturalV2(
-                                            tk.tokenListData!.decimals,
-                                            new BN(
-                                              tk.stakeEntry!.parsed.amount.toNumber()
-                                            )
-                                          ).toFixed(2)
-                                        ).toString()
+                                        getMintDecimalAmountFromNaturalV2(
+                                          tk.tokenListData!.decimals,
+                                          new BN(
+                                            tk.stakeEntry!.parsed.amount.toNumber()
+                                          )
+                                        ).toFixed(2)
+                                      ).toString()
                                       : ''
                                   }
                                   autoComplete="off"
@@ -923,7 +925,7 @@ function Home() {
                               </div>
                               {rewards.data &&
                                 rewards.data.rewardMap[
-                                  tk.stakeEntry?.pubkey.toString() || ''
+                                tk.stakeEntry?.pubkey.toString() || ''
                                 ] &&
                                 rewardDistributorData.data?.parsed.rewardDurationSeconds.gte(
                                   new BN(60)
@@ -937,7 +939,7 @@ function Home() {
                                   </div>
                                 )}
                               {tk.stakeEntry?.parsed.cooldownStartSeconds &&
-                              stakePool?.parsed.cooldownSeconds ? (
+                                stakePool?.parsed.cooldownSeconds ? (
                                 <div
                                   className="mt-1 flex items-center justify-center text-xs"
                                   style={{
@@ -949,20 +951,20 @@ function Home() {
                                   {tk.stakeEntry?.parsed.cooldownStartSeconds.toNumber() +
                                     stakePool.parsed.cooldownSeconds -
                                     UTCNow >
-                                  0
+                                    0
                                     ? 'Cooldown: ' +
-                                      secondstoDuration(
-                                        tk.stakeEntry?.parsed.cooldownStartSeconds.toNumber() +
-                                          stakePool.parsed.cooldownSeconds -
-                                          UTCNow
-                                      )
+                                    secondstoDuration(
+                                      tk.stakeEntry?.parsed.cooldownStartSeconds.toNumber() +
+                                      stakePool.parsed.cooldownSeconds -
+                                      UTCNow
+                                    )
                                     : 'Cooldown finished!'}
                                 </div>
                               ) : (
                                 ''
                               )}
                               {stakePool?.parsed.minStakeSeconds &&
-                              tk.stakeEntry?.parsed.lastStakedAt ? (
+                                tk.stakeEntry?.parsed.lastStakedAt ? (
                                 <div
                                   className="mt-1 flex items-center justify-center text-xs"
                                   style={{
@@ -974,13 +976,13 @@ function Home() {
                                   {tk.stakeEntry?.parsed.lastStakedAt.toNumber() +
                                     stakePool.parsed.minStakeSeconds -
                                     UTCNow >
-                                  0
+                                    0
                                     ? 'Able to unstake in: ' +
-                                      secondstoDuration(
-                                        tk.stakeEntry?.parsed.lastStakedAt.toNumber() +
-                                          stakePool.parsed.minStakeSeconds -
-                                          UTCNow
-                                      )
+                                    secondstoDuration(
+                                      tk.stakeEntry?.parsed.lastStakedAt.toNumber() +
+                                      stakePool.parsed.minStakeSeconds -
+                                      UTCNow
+                                    )
                                     : 'Min Staked Time Satisfied!'}
                                 </div>
                               ) : (
@@ -1023,7 +1025,7 @@ function Home() {
                 </button>
               </MouseoverTooltip>
               {rewardDistributorData.data &&
-              rewards.data?.claimableRewards.gt(new BN(0)) ? (
+                rewards.data?.claimableRewards.gt(new BN(0)) ? (
                 <button
                   onClick={() => {
                     if (stakedSelected.length === 0) {
