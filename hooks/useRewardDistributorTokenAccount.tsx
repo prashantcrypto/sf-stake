@@ -1,14 +1,18 @@
-import { useDataHook } from './useDataHook'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 import { findAta } from '@cardinal/common'
 import { useRewardDistributorData } from './useRewardDistributorData'
 import * as splToken from '@solana/spl-token'
 import { Keypair } from '@solana/web3.js'
+import { useQuery } from 'react-query'
 
 export const useRewardDistributorTokenAccount = () => {
   const rewardDistibutorData = useRewardDistributorData()
-  const { connection } = useEnvironmentCtx()
-  return useDataHook<splToken.AccountInfo | undefined>(
+  const { secondaryConnection } = useEnvironmentCtx()
+  return useQuery<splToken.AccountInfo | undefined>(
+    [
+      'useRewardDistributorTokenAccount',
+      rewardDistibutorData?.data?.pubkey?.toString(),
+    ],
     async () => {
       if (!rewardDistibutorData.data) return
       const rewardDistributorTokenAccount = await findAta(
@@ -17,14 +21,13 @@ export const useRewardDistributorTokenAccount = () => {
         true
       )
       const rewardMint = new splToken.Token(
-        connection,
+        secondaryConnection,
         rewardDistibutorData.data.parsed.rewardMint,
         splToken.TOKEN_PROGRAM_ID,
         Keypair.generate() // not used
       )
       return await rewardMint.getAccountInfo(rewardDistributorTokenAccount)
     },
-    [rewardDistibutorData?.data?.pubkey?.toString()],
-    { name: 'rewardDistributorTokenAccount' }
+    { enabled: !!rewardDistibutorData.data }
   )
 }

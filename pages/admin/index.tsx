@@ -14,7 +14,7 @@ import Head from 'next/head'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 import * as splToken from '@solana/spl-token'
 import { useState } from 'react'
-import { Placeholder, StakePool } from 'pages'
+import { Placeholder } from 'pages'
 import { pubKeyUrl, shortPubKey } from 'common/utils'
 import { FaQuestion } from 'react-icons/fa'
 import { useStakePoolsByAuthority } from 'hooks/useStakePoolsByAuthority'
@@ -22,6 +22,7 @@ import { useStakePoolsMetadatas } from 'hooks/useStakePoolsMetadata'
 import { Footer } from 'common/Footer'
 import { tryPublicKey } from 'common/utils'
 import { CreationForm, StakePoolForm } from 'components/StakePoolForm'
+import { StakePool } from 'hooks/useAllStakePools'
 
 function Admin() {
   const { connection, environment } = useEnvironmentCtx()
@@ -189,7 +190,7 @@ function Admin() {
           <div>
             <div className="mb-5 text-lg font-bold">Your pools</div>
             <div className="grid grid-cols-3 gap-5">
-              {!stakePools.loaded && !stakePoolsMetadata.loaded ? (
+              {!stakePools.isFetched && !stakePoolsMetadata.isFetched ? (
                 <>
                   <Placeholder />
                   <Placeholder />

@@ -10,12 +10,15 @@ import {
   getInitialProps,
 } from 'providers/EnvironmentProvider'
 import { WalletIdentityProvider } from '@cardinal/namespaces-components'
-import { TokenAccountsProvider } from 'providers/TokenDataProvider'
-import { StakedTokenDataProvider } from 'providers/StakedTokenDataProvider'
-import { TokenListProvider } from 'providers/TokenListProvider'
 import { UTCNowProvider } from 'providers/UTCNowProvider'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 require('@solana/wallet-adapter-react-ui/styles.css')
+
+export const queryClient = new QueryClient()
+
+export const DEBUG = false
 
 const App = ({
   Component,
@@ -27,13 +30,12 @@ const App = ({
       <WalletProvider autoConnect wallets={getWalletAdapters()}>
         <WalletIdentityProvider>
           <WalletModalProvider>
-            <TokenListProvider>
-              <TokenAccountsProvider>
-                <StakedTokenDataProvider>
-                  <Component {...pageProps} />
-                </StakedTokenDataProvider>
-              </TokenAccountsProvider>
-            </TokenListProvider>
+            <QueryClientProvider client={queryClient}>
+              <>
+                <Component {...pageProps} />
+                {DEBUG && <ReactQueryDevtools initialIsOpen={false} />}
+              </>
+            </QueryClientProvider>
           </WalletModalProvider>
         </WalletIdentityProvider>
       </WalletProvider>

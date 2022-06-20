@@ -14,14 +14,14 @@ export interface EnvironmentContextValues {
   environment: Environment
   setEnvironment: (newEnvironment: Environment) => void
   connection: Connection
+  secondaryConnection: Connection
 }
 
 export const ENVIRONMENTS: Environment[] = [
   {
     label: 'mainnet-beta',
-    primary:
-      'https://ssc-dao.genesysgo.net',
-    secondary: 'https://api.mainnet-beta.solana.com',
+    primary: process.env.MAINNET_PRIMARY || 'https://ssc-dao.genesysgo.net',
+    secondary: 'https://ssc-dao.genesysgo.net',
   },
   {
     label: 'testnet',
@@ -41,7 +41,8 @@ export const getInitialProps = async ({
 }: {
   ctx: NextPageContext
 }): Promise<{ cluster: string }> => {
-  const cluster = (ctx.req?.headers.host || ctx.query.host)?.includes('dev')
+  const host = ctx.req?.headers.host || ctx.query.host
+  const cluster = host?.includes('dev')
     ? 'devnet'
     : (ctx.query.project || ctx.query.host)?.includes('test')
     ? 'testnet'
@@ -79,12 +80,21 @@ export function EnvironmentProvider({
     [environment]
   )
 
+  const secondaryConnection = useMemo(
+    () =>
+      new Connection(environment.secondary ?? environment.primary, {
+        commitment: 'recent',
+      }),
+    [environment]
+  )
+
   return (
     <EnvironmentContext.Provider
       value={{
         environment,
         setEnvironment,
         connection,
+        secondaryConnection,
       }}
     >
       {children}

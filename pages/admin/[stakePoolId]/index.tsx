@@ -11,6 +11,7 @@ import {
 import {
   withCloseRewardDistributor,
   withInitRewardDistributor,
+  withUpdateRewardDistributor,
   withUpdateRewardEntry,
 } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
 import {
@@ -32,12 +33,13 @@ import { useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 import { CreationForm, StakePoolForm } from 'components/StakePoolForm'
 import { useRewardDistributorData } from 'hooks/useRewardDistributorData'
-import { tryPublicKey } from 'common/utils'
+import { pubKeyUrl, shortPubKey, tryPublicKey } from 'common/utils'
 import { findStakeEntryIdFromMint } from '@cardinal/staking/dist/cjs/programs/stakePool/utils'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { getMintDecimalAmountFromNatural } from 'common/units'
 import { useRewardMintInfo } from 'hooks/useRewardMintInfo'
+import { Tooltip } from '@mui/material'
 
 const publicKeyValidationTest = (value: string | undefined): boolean => {
   return tryPublicKey(value) ? true : false
@@ -326,33 +328,31 @@ function AdminStakePool() {
             type: 'success',
           })
         }
-      } else {
-        // if (
-        //   rewardDistributor.parsed.defaultMultiplier.toString() !==
-        //     defaultMultiplier &&
-        //   rewardDistributor.parsed.multiplierDecimals.toString() !==
-        //     multiplierDecimals
-        // ) {
-        //   const tx = await withUpdateRewardDistributor(
-        //     new Transaction(),
-        //     connection,
-        //     wallet as Wallet,
-        //     {
-        //       stakePoolId: stakePool.data.pubkey,
-        //       defaultMultiplier: new BN(defaultMultiplier),
-        //       multiplierDecimals: Number(multiplierDecimals),
-        //     }
-        //   )
-        //   console.log(tx)
-        //   await executeTransaction(connection, wallet as Wallet, tx, {
-        //     silent: false,
-        //     signers: [],
-        //   })
-        //   notify({
-        //     message: `Successfully updated defaultMultiplier and multiplierDecimals`,
-        //     type: 'success',
-        //   })
-        // }
+      } else if (
+        rewardDistributor.data?.parsed.defaultMultiplier.toString() !==
+          values.defaultMultiplier?.toString() &&
+        rewardDistributor.data?.parsed.multiplierDecimals.toString() !==
+          values.multiplierDecimals?.toString()
+      ) {
+        const tx = await withUpdateRewardDistributor(
+          new Transaction(),
+          connection,
+          wallet as Wallet,
+          {
+            stakePoolId: stakePool.data.pubkey,
+            defaultMultiplier: new BN(values.defaultMultiplier!),
+            multiplierDecimals: Number(values.multiplierDecimals),
+          }
+        )
+        console.log(tx)
+        await executeTransaction(connection, wallet as Wallet, tx, {
+          silent: false,
+          signers: [],
+        })
+        notify({
+          message: `Successfully updated defaultMultiplier and multiplierDecimals`,
+          type: 'success',
+        })
       }
 
       const collectionPublicKeys = values.requireCollections
@@ -390,7 +390,7 @@ function AdminStakePool() {
         type: 'success',
       })
 
-      await setTimeout(() => stakePool.refresh(true), 1000)
+      await setTimeout(() => stakePool.refetch(), 1000)
     } catch (e) {
       notify({
         message: handleError(e, `Error updating stake pool: ${e}`),
@@ -455,7 +455,7 @@ function AdminStakePool() {
       <Header />
       <div className="container mx-auto w-full bg-[#1a1b20]">
         <div className="my-2 h-full min-h-[55vh] rounded-md bg-white bg-opacity-5 p-10 text-gray-200">
-          {!stakePool.loaded || !rewardDistributor.loaded ? (
+          {!stakePool.isFetched || !rewardDistributor.isFetched ? (
             <div className="h-[40vh] w-full animate-pulse rounded-md bg-white bg-opacity-10"></div>
           ) : stakePool.data ? (
             <div className="grid h-full grid-cols-2 gap-4 ">
@@ -478,7 +478,7 @@ function AdminStakePool() {
                 <p className="mt-1 mb-5 text-sm">
                   The parameters currently in place for the stake pool
                 </p>
-                {stakePool.loaded ? (
+                {stakePool.isFetched ? (
                   <>
                     <span className="flex w-full flex-wrap md:mb-0">
                       <label className="inline-block text-sm font-bold uppercase tracking-wide text-gray-200">
@@ -511,7 +511,7 @@ function AdminStakePool() {
                       <label className="inline-block text-sm font-bold uppercase tracking-wide text-gray-200">
                         Creator Addresses:
                       </label>
-                      <label className="inline-block pl-2">
+                      <label className="inline-block pl-2 text-white">
                         {stakePool.data?.parsed.requiresCreators &&
                         stakePool.data?.parsed.requiresCreators.length !== 0
                           ? stakePool.data?.parsed.requiresCreators.map(
@@ -519,7 +519,7 @@ function AdminStakePool() {
                                 <ShortPubKeyUrl
                                   pubkey={creator}
                                   cluster={environment.label}
-                                  className="pr-2 text-sm text-white"
+                                  className="pr-2 text-sm font-bold underline underline-offset-2"
                                 />
                               )
                             )
@@ -547,6 +547,26 @@ function AdminStakePool() {
                     </span>
                     {rewardDistributor.data && (
                       <>
+                        <span className="mt-3 flex w-full flex-wrap md:mb-0">
+                          <Tooltip
+                            title={'Use to add more funds to reward ditributor'}
+                            placement="right"
+                          >
+                            <label className="inline-block text-sm font-bold uppercase tracking-wide text-gray-200">
+                              Reward Distributor Token Account:{' '}
+                              <a
+                                target={'_blank'}
+                                className="underline underline-offset-2"
+                                href={pubKeyUrl(
+                                  rewardDistributor.data.pubkey,
+                                  environment.label
+                                )}
+                              >
+                                {shortPubKey(rewardDistributor.data.pubkey)}
+                              </a>{' '}
+                            </label>
+                          </Tooltip>
+                        </span>
                         <span className="mt-3 flex w-full flex-wrap md:mb-0">
                           <label className="inline-block text-sm font-bold uppercase tracking-wide text-gray-200">
                             Reward Duration Seconds:{' '}

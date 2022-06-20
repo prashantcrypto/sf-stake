@@ -1,15 +1,11 @@
-import { AccountData } from '@cardinal/common'
-import { StakePoolData } from '@cardinal/staking/dist/cjs/programs/stakePool'
-import { getAllStakePools } from '@cardinal/staking/dist/cjs/programs/stakePool/accounts'
-import { StakePoolMetadata, stakePoolMetadatas } from 'api/mapping'
 import { Footer } from 'common/Footer'
 import { Header } from 'common/Header'
-import { notify } from 'common/Notification'
 import { pubKeyUrl, shortPubKey } from 'common/utils'
+import { useAllStakePools } from 'hooks/useAllStakePools'
+import { useStats } from 'hooks/useStats'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
-import { useEffect, useState } from 'react'
 import { FaQuestion } from 'react-icons/fa'
 
 export function Placeholder() {
@@ -18,61 +14,11 @@ export function Placeholder() {
   )
 }
 
-export type StakePool = {
-  stakePoolMetadata?: StakePoolMetadata
-  stakePoolData: AccountData<StakePoolData>
-}
-
 function Home() {
-  const { connection, environment } = useEnvironmentCtx()
-  const [stakePools, setStakePools] = useState<[StakePool[], StakePool[]]>([
-    [],
-    [],
-  ])
-  const [stakePoolsLoaded, setStakePoolsLoaded] = useState(false)
+  const { environment } = useEnvironmentCtx()
+  const allStakePools = useAllStakePools()
   const router = useRouter()
-
-  useEffect(() => {
-    const setData = async () => {
-      try {
-        const allStakePoolDatas = await getAllStakePools(connection)
-        const [stakePoolsWithMetadata, stakePoolsWithoutMetadata] =
-          allStakePoolDatas.reduce(
-            (acc, stakePoolData) => {
-              const stakePoolMetadata = stakePoolMetadatas.find(
-                (md) =>
-                  md.stakePoolAddress.toString() ===
-                  stakePoolData.pubkey.toString()
-              )
-              if (stakePoolMetadata) {
-                return [
-                  [...acc[0], { stakePoolMetadata, stakePoolData }],
-                  acc[1],
-                ]
-              }
-              return [acc[0], [...acc[1], { stakePoolData }]]
-            },
-            [[] as StakePool[], [] as StakePool[]]
-          )
-        setStakePools([
-          stakePoolsWithMetadata.sort((a, b) =>
-            a
-              .stakePoolMetadata!.name.toString()
-              .localeCompare(b.stakePoolMetadata!.name.toString())
-          ),
-          stakePoolsWithoutMetadata,
-        ])
-      } catch (e) {
-        notify({
-          message: `${e}`,
-          type: 'error',
-        })
-      } finally {
-        setStakePoolsLoaded(true)
-      }
-    }
-    setData().catch(console.error)
-  }, [])
+  const stats = useStats()
 
   return (
     <div>
@@ -81,19 +27,16 @@ function Home() {
         <meta name="description" content="Stoned Farms Staking" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
-      <div className=' '>
-        
+
+      <div>
         <Header />
-        <div className='bgImage -mt-20'></div>
         <div
-          className="container mx-auto w-full px-16 relative "
-          style={{ minHeight: 'calc(100vh - 325px)' }}
+          className="container mx-auto w-full px-5"
+          style={{ minHeight: 'calc(100vh - 330px)' }}
         >
-          <div className="mb-5 text-lg font-bold mt-16">
-          </div>
-          <div className="md:max-w-xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            {!stakePoolsLoaded ? (
+          <div className="mt-10 mb-5 text-lg font-bold"></div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-1">
+            {!allStakePools.isFetched ? (
               <>
                 <Placeholder />
                 <Placeholder />
@@ -102,27 +45,27 @@ function Home() {
                 <Placeholder />
                 <Placeholder />
               </>
-            ) : stakePools[0].length > 0 ? (
-              stakePools[0].map(
+            ) : allStakePools.data &&
+              allStakePools.data?.stakePoolsWithMetadata.length > 0 ? (
+              allStakePools.data?.stakePoolsWithMetadata.map(
                 (stakePool) =>
                   !stakePool.stakePoolMetadata?.hidden && (
                     <div
-                      className="flex h-[300px] cursor-pointer flex-col rounded-lg bg-forestGreen bg-opacity-40 border-white border py-10 px-5 md:px-28 transition-all duration-100 hover:scale-[1.01]"
+                      className="flex h-[300px] cursor-pointer flex-col rounded-lg bg-white bg-opacity-5 p-10 transition-all duration-100 hover:scale-[1.01]"
                       onClick={() =>
                         router.push(
-                          `/${
-                            stakePool.stakePoolMetadata?.name ||
-                            stakePool.stakePoolData.pubkey.toString()
-                          }${
-                            environment.label !== 'mainnet-beta'
-                              ? `?cluster=${environment.label}`
-                              : ''
+                          stakePool.stakePoolMetadata?.redirect ??
+                          `/${stakePool.stakePoolMetadata?.name ||
+                          stakePool.stakePoolData.pubkey.toString()
+                          }${environment.label !== 'mainnet-beta'
+                            ? `?cluster=${environment.label}`
+                            : ''
                           }`
                         )
                       }
                     >
-                      <div className="text-center font-bold ">
-                        Stake Your Goat
+                      <div className="text-center font-bold">
+                        {stakePool.stakePoolMetadata?.displayName}
                       </div>
                       <div className="text-gray text-center">
                         <a
@@ -140,7 +83,7 @@ function Home() {
                         {stakePool.stakePoolMetadata?.imageUrl && (
                           <img
                             className="max-h-[150px] rounded-md"
-                            src='stoned.png'
+                            src={stakePool.stakePoolMetadata.imageUrl}
                             alt={stakePool.stakePoolMetadata.name}
                           />
                         )}
@@ -152,10 +95,14 @@ function Home() {
               'No pools found...'
             )}
           </div>
-          {stakePools[1].length > 0 && (
-            <>
-            </>
-          )}
+          {allStakePools.data &&
+            allStakePools.data.stakePoolsWithoutMetadata.length > 0 && (
+              <>
+                <div className="mt-10 mb-5 text-lg font-bold">
+
+                </div>
+              </>
+            )}
         </div>
         <Footer />
       </div>

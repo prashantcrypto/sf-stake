@@ -1,6 +1,14 @@
 import { AirdropMetadata } from './../common/Airdrop'
 import { PublicKey } from '@solana/web3.js'
 import { ReceiptType } from '@cardinal/staking/dist/cjs/programs/stakePool'
+import { CSSProperties } from 'react'
+
+export enum TokenStandard {
+  // Fungible, can have more than 1
+  Fungible = 1,
+  // Non fungible are all unique
+  NonFungible = 2,
+}
 
 export type StakePoolMetadata = {
   // Name of this stake pool used as an id. Should be in lower-case kebab-case since it is used in the URL as /{name}
@@ -12,14 +20,27 @@ export type StakePoolMetadata = {
   stakePoolAddress: PublicKey
   // Default receipt type. Setting this will remove the option for the user to choose which receipt type to use
   receiptType?: ReceiptType
+  // Default empty. Setting this will tell the UI to only show tokens of that standard. Supports fungible or non-fungible
+  tokenStandard?: TokenStandard
   // Optional config to hide this pool from the main page
   hidden?: boolean
+  // Optional config to disable finding this pool
+  notFound?: boolean
+  // Optional hostname to remap
+  hostname?: string
+  // Optional config to link redirect to page when you click on this pool
+  redirect?: string
+  // Hide allowed tokens style
+  hideAllowedTokens?: boolean
+  // styles to apply to the whole stake pool
+  styles?: CSSProperties
   // Colors object to style the stake page
   colors?: {
     primary: string
     secondary: string
     accent?: string
     fontColor?: string
+    backgroundSecondary?: string
   }
   // Image url to be used as the icon in the pool selector and the header
   imageUrl?: string
@@ -38,18 +59,23 @@ export const defaultSecondaryColor = 'rgba(29, 78, 216, 255)'
 export const stakePoolMetadatas: StakePoolMetadata[] = [
   {
     name: 'stake',
-    displayName: 'Stoned Farms',
+    displayName: 'Stake Your Goat',
     stakePoolAddress: new PublicKey(
       'BdqcbcwaX5YpQPDLh9m9u89QH46WXcnQB5r7vK3h54U4'
     ),
     websiteUrl: 'https://stonedfarms.io/',
     receiptType: ReceiptType.Original,
     maxStaked: 2500,
-    imageUrl: 'https://smvkptoniao6opm5dr3gwgm45tyk3hk5dhz4vrsjqyviqqlkwu.arweave.net/k_yqnzc1AHec9nRx2axmc7PCtnV0Z88rGSYYqiEFqtU',
-    colors: {
-      primary: '#1a1b20',
-      secondary: '#344E41',
-      accent: '#1fcfb11c',
+    imageUrl:
+      'https://smvkptoniao6opm5dr3gwgm45tyk3hk5dhz4vrsjqyviqqlkwu.arweave.net/k_yqnzc1AHec9nRx2axmc7PCtnV0Z88rGSYYqiEFqtU',
+    styles: {
+        fontFamily: 'fot-udmincho-pr6n, serif',
+        fontWeight: 700,
+      },
+      colors: {
+      primary: '#1a2721',
+      secondary: '#48524d',
+      accent: '#FFFFFF',
       fontColor: '#FFFFFF',
     },
   },

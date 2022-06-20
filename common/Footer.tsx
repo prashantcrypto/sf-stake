@@ -2,7 +2,7 @@ import { darken, lighten } from 'polished'
 import { FaDiscord, FaGithub, FaMedium, FaTwitter } from 'react-icons/fa'
 
 const SOCIALS = {
-  discord: { icon: <FaDiscord />, link: 'https://discord.gg/s7DKM92pt9' },
+  discord: { icon: <FaDiscord />, link: 'https://discord.gg/bSZnKaD3YA' },
   twitter: { icon: <FaTwitter />, link: 'https://twitter.com/stonedfarms' },
 }
 
@@ -51,15 +51,15 @@ export const Footer = ({
         className="text-md flex items-center justify-between border-t border-white py-4 text-gray-400 pt-8"
       >
         <div className="flex items-center justify-center gap-2 text-gray-400 -mt-1 z-50">
-            <a
-              target="_blank"
-              href="https://stonedfarms.io/"
-              className="flex cursor-pointer text-xl font-semibold text-black hover:text-gray-300"
-            >
-              
-                <img className="h-16 w-42" src='SFFooterWhite.png' />
-         
-            </a>
+          <a
+            target="_blank"
+            href="https://stonedfarms.io/"
+            className="flex cursor-pointer text-xl font-semibold text-black hover:text-gray-300"
+          >
+
+            <img className="h-16 w-42" src='SFFooterWhite.png' />
+
+          </a>
         </div>
         <div className="flex gap-4 text-gray-100">
           {Object.entries(SOCIALS).map(([id, { icon, link }]) => {
