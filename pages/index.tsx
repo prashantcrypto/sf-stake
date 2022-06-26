@@ -23,8 +23,8 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>Stoned Farms</title>
-        <meta name="description" content="Stoned Farms Staking" />
+        <title>Goofy The Goats</title>
+        <meta name="description" content="Goofy The Goats Staking" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -55,12 +55,14 @@ function Home() {
                       onClick={() =>
                         router.push(
                           stakePool.stakePoolMetadata?.redirect ??
-                          `/${stakePool.stakePoolMetadata?.name ||
-                          stakePool.stakePoolData.pubkey.toString()
-                          }${environment.label !== 'mainnet-beta'
-                            ? `?cluster=${environment.label}`
-                            : ''
-                          }`
+                            `/${
+                              stakePool.stakePoolMetadata?.name ||
+                              stakePool.stakePoolData.pubkey.toString()
+                            }${
+                              environment.label !== 'mainnet-beta'
+                                ? `?cluster=${environment.label}`
+                                : ''
+                            }`
                         )
                       }
                     >
@@ -76,8 +78,7 @@ function Home() {
                             stakePool.stakePoolData.pubkey,
                             environment.label
                           )}
-                        >
-                        </a>
+                        ></a>
                       </div>
                       <div className="flex flex-grow items-center justify-center">
                         {stakePool.stakePoolMetadata?.imageUrl && (
@@ -98,9 +99,7 @@ function Home() {
           {allStakePools.data &&
             allStakePools.data.stakePoolsWithoutMetadata.length > 0 && (
               <>
-                <div className="mt-10 mb-5 text-lg font-bold">
-
-                </div>
+                <div className="mt-10 mb-5 text-lg font-bold"></div>
               </>
             )}
         </div>
