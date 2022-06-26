@@ -16,18 +16,108 @@ body {
   font-family: fot-udmincho-pr6n, serif;
   font-style: normal;
   font-weight: 700;
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-  --tw-gradient-from: #1a2721;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, #1a2721);
-  background-color:#1a2721 !important;
+  background-color: #f1dfd1 !important;
+    background-image: linear-gradient(315deg, #f1dfd1 0%, #f6f0ea 74%) !important;
+    ;
 }
 
 .bgImage {
   position: fixed;
   opacity:0.02;
-  background-image: url('../public/BGImage.png');
+  background-image: url('../public/logo.png');
   background-size: cover;
   height:100%;
   width:100%;
   
+}
+.bg-white {
+  background: #faf8f4
+}
+
+.rounded-md {
+  border-radius: 1.375rem
+}
+
+.absolute.top-2.left-2 {
+  height: 15px !important;
+  width: 15px !important;
+  content: '✔';
+  position: absolute;
+  border-radius: 50%;
+  background-color:
+    #00ff1f !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
+}
+
+
+.wallet-adapter-button {
+
+  background: #998152 !important;
+  color: #ffffff !important;
+}
+
+
+.text-lg {
+  color: #8b8b8b;
+}
+
+.underline {
+  color: #8b8b8b !important;
+}
+
+.text-sm {
+  color: #8b8b8b !important;
+}
+
+.font-semibold {
+  color: #8b8b8b !important;
+}
+
+.font-normal {
+  color: #8b8b8b !important;
+}
+
+
+
+.lineargradi {
+  margin-top: 30px;
+  width: 100%;
+  height: 30px;
+  line-height: 26px;
+  background-color: #faf8f4;
+  border-radius: 15px;
+  text-align: center;
+  color: #bd9a77;
+  font-size: 22px;
+  position: relative;
+  font-weight: 700;
+  font-family: Outfit, Tahoma, Geneva, Verdana, sans-serif;
+  border: 2px solid rgba(201, 172, 142, .29);
+}
+
+
+.lineargradistaked {
+  background-color: rgba(201, 172, 142, .8);
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.progress {
+  z-index: 2;
+  color: #bd9a77 !important;
+  text-align: center;
+
+}
+
+.wallet-adapter-dropdown-list {
+  background: #d3ba88 !important;
+}
+
+li.wallet-adapter-dropdown-list-item:hover {
+  background: #998152 !important;
 }
