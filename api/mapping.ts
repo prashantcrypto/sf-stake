@@ -61,22 +61,22 @@ export const stakePoolMetadatas: StakePoolMetadata[] = [
     name: 'stake',
     displayName: 'Stake Your Goat',
     stakePoolAddress: new PublicKey(
-      'BdqcbcwaX5YpQPDLh9m9u89QH46WXcnQB5r7vK3h54U4'
+      'GZBpx5e7DWf6cuxZ5MrV3yRcvxJCRgtCvEFTxC1ma9HT'
     ),
-    websiteUrl: 'https://stonedfarms.io/',
+    websiteUrl: 'http://goofythegoat.com/',
     receiptType: ReceiptType.Original,
-    maxStaked: 2500,
+    maxStaked: 10000,
     imageUrl:
-      'https://smvkptoniao6opm5dr3gwgm45tyk3hk5dhz4vrsjqyviqqlkwu.arweave.net/k_yqnzc1AHec9nRx2axmc7PCtnV0Z88rGSYYqiEFqtU',
+      'logo.png',
     styles: {
         fontFamily: 'fot-udmincho-pr6n, serif',
         fontWeight: 700,
       },
       colors: {
-      primary: '#1a2721',
-      secondary: '#48524d',
-      accent: '#FFFFFF',
-      fontColor: '#FFFFFF',
-    },
+        primary: 'transparent',
+        secondary: '#0066ffc7',
+        accent: '#FFFFFF',
+        fontColor: '#FFFFFF',
+      },
   },
 ]
