@@ -14,7 +14,12 @@ import { useEffect, useState } from 'react'
 import { Wallet } from '@metaplex/js'
 import { LoadingSpinner } from 'common/LoadingSpinner'
 import { notify } from 'common/Notification'
-import { contrastColorMode, pubKeyUrl, secondstoDuration } from 'common/utils'
+import {
+  contrastColorMode,
+  pubKeyUrl,
+  secondstoDuration,
+  secondstoDurationformin,
+} from 'common/utils'
 import {
   formatAmountAsDecimal,
   formatMintNaturalAmountAsDecimal,
@@ -55,6 +60,7 @@ import { useRouter } from 'next/router'
 import { lighten, darken } from '@mui/material'
 import { QuickActions } from 'common/QuickActions'
 import * as splToken from '@solana/spl-token'
+import styled from '@emotion/styled/types/base'
 
 function Home() {
   const router = useRouter()
@@ -76,6 +82,7 @@ function Home() {
   const [stakedSelected, setStakedSelected] = useState<StakeEntryTokenData[]>(
     []
   )
+
   const [loadingStake, setLoadingStake] = useState(false)
   const [loadingUnstake, setLoadingUnstake] = useState(false)
   const [singleTokenAction, setSingleTokenAction] = useState('')
@@ -105,7 +112,10 @@ function Home() {
 
   async function handleClaimRewards() {
     if (stakedSelected.length > 100) {
-      notify({ message: `Limit of 100 tokens at a time reached`, type: 'error' })
+      notify({
+        message: `Limit of 100 tokens at a time reached`,
+        type: 'error',
+      })
       return
     }
     setLoadingClaimRewards(true)
@@ -150,7 +160,7 @@ function Home() {
           },
         }
       )
-    } catch (e) { }
+    } catch (e) {}
 
     rewardDistributorData.remove()
     rewardDistributorTokenAccountData.remove()
@@ -211,7 +221,7 @@ function Home() {
           },
         }
       )
-    } catch (e) { }
+    } catch (e) {}
 
     await Promise.all([
       stakedTokenDatas.remove(),
@@ -296,7 +306,7 @@ function Home() {
             },
           }
         )
-      } catch (e) { }
+      } catch (e) {}
     }
 
     const txs: (Transaction | null)[] = await Promise.all(
@@ -308,7 +318,7 @@ function Home() {
 
           if (
             token.tokenAccount?.account.data.parsed.info.tokenAmount.amount >
-            1 &&
+              1 &&
             !token.amountToStake
           ) {
             throw new Error('Invalid amount chosen for token')
@@ -325,13 +335,13 @@ function Home() {
 
           const amount = token?.amountToStake
             ? new BN(
-              token?.amountToStake && token.tokenListData
-                ? parseMintNaturalAmountFromDecimal(
-                  token?.amountToStake,
-                  token.tokenListData.decimals
-                ).toString()
-                : 1
-            )
+                token?.amountToStake && token.tokenListData
+                  ? parseMintNaturalAmountFromDecimal(
+                      token?.amountToStake,
+                      token.tokenListData.decimals
+                    ).toString()
+                  : 1
+              )
             : undefined
           // stake
           return stake(connection, wallet as Wallet, {
@@ -369,7 +379,7 @@ function Home() {
           },
         }
       )
-    } catch (e) { }
+    } catch (e) {}
 
     await Promise.all([
       stakedTokenDatas.remove(),
@@ -520,9 +530,9 @@ function Home() {
   return (
     <div style={{ background: stakePoolMetadata?.colors?.primary }}>
       <Head>
-        <title>Stoned Farms</title>
-        <meta name="description" content="Stoned Farms Staking" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Goofy The Goat</title>
+        <meta name="description" content="Goofy The Goat Staking" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <Header />
       <div
@@ -555,36 +565,40 @@ function Home() {
         ) : (
           !wallet.connected && (
             <div
-              className={`mx-5 mb-5 cursor-pointer rounded-md border-[1px]  p-4 text-center text-lg font-semibold ${stakePoolMetadata?.colors?.accent &&
+              className={`mx-5 mb-5 cursor-pointer rounded-md border-[1px]  p-4 text-center text-lg font-semibold ${
+                stakePoolMetadata?.colors?.accent &&
                 stakePoolMetadata?.colors.fontColor
-                ? ''
-                : 'border-yellow-500 bg-yellow-500 bg-opacity-40'
-                }`}
+                  ? ''
+                  : 'border-yellow-500 bg-yellow-500 bg-opacity-40'
+              }`}
               style={
                 stakePoolMetadata?.colors?.accent &&
-                  stakePoolMetadata?.colors.fontColor
+                stakePoolMetadata?.colors.fontColor
                   ? {
-                    background: stakePoolMetadata?.colors?.secondary,
-                    borderColor: stakePoolMetadata?.colors?.accent,
-                    color: stakePoolMetadata?.colors?.fontColor,
-                  }
+                      background:
+                        'linear-gradient(90deg, rgb(229 224 208) 0%, rgb(215 205 171)70%,rgb(223 198 180)100%)',
+                      borderColor: stakePoolMetadata?.colors?.accent,
+                      color: '#4bff00',
+                    }
                   : {}
               }
               onClick={() => walletModal.setVisible(true)}
             >
-              Connect wallet to continue
+              Connect Wallet To Continue The Stake
             </div>
           )
         )}
         {(maxStaked || rewardDistributorData) && !stakePoolMetadata?.notFound && (
           <div
-            className={`mx-5 mb-4 flex flex-wrap items-center gap-4 rounded-md px-10 py-6  md:flex-row md:justify-between ${stakePoolMetadata?.colors?.fontColor
-              ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-              : 'text-gray-200'
-              } ${stakePoolMetadata?.colors?.backgroundSecondary
+            className={`mx-5 mb-4 flex flex-wrap items-center gap-4 rounded-md px-10 py-6  md:flex-row md:justify-between ${
+              stakePoolMetadata?.colors?.fontColor
+                ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
+                : 'text-gray-200'
+            } ${
+              stakePoolMetadata?.colors?.backgroundSecondary
                 ? `bg-[${stakePoolMetadata?.colors?.backgroundSecondary}]`
                 : 'bg-white bg-opacity-5'
-              }`}
+            }`}
             style={{
               background: stakePoolMetadata?.colors?.backgroundSecondary,
               border: stakePoolMetadata?.colors?.accent
@@ -594,32 +608,43 @@ function Home() {
           >
             {stakePoolEntries.data ? (
               <>
-                <div className="inline-block text-lg">
-                  Total Staked: {Number(totalStaked).toLocaleString()}{' '}
-                  {stakePoolMetadata?.maxStaked
-                    ? `/ ${stakePoolMetadata?.maxStaked.toLocaleString()}`
-                    : ''}
-                </div>
-                {maxStaked > 0 && (
-                  <div className="inline-block text-lg">
+                <div className="lineargradi">
+                  <span className="progress">
                     {/*TODO: Change how many total NFTs can possibly be staked for your collection (default 10000) */}
                     Percent Staked:{' '}
                     {stakePoolEntries.data?.length &&
                       Math.floor(
                         ((stakePoolEntries.data?.length * 100) / maxStaked) *
-                        10000
+                          10000
                       ) / 10000}
                     %
+                  </span>
+
+                  <div
+                    className="lineargradistaked"
+                    style={{
+                      width:
+                        (stakePoolEntries.data?.length * 100) / maxStaked + '%',
+                    }}
+                  ></div>
+                </div>
+                {maxStaked > 0 && (
+                  <div className="inline-block text-lg">
+                    TOTAL STAKED : {Number(totalStaked).toLocaleString()}{' '}
+                    {stakePoolMetadata?.maxStaked
+                      ? `/ ${stakePoolMetadata?.maxStaked.toLocaleString()}`
+                      : ''}
                   </div>
                 )}
               </>
             ) : (
               <div className="relative flex h-8 flex-grow items-center justify-center">
                 <span
-                  className={`${stakePoolMetadata?.colors?.fontColor
-                    ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-                    : 'text-gray-500'
-                    }`}
+                  className={`${
+                    stakePoolMetadata?.colors?.fontColor
+                      ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
+                      : 'text-gray-500'
+                  }`}
                 >
                   Loading pool info...
                 </span>
@@ -667,7 +692,7 @@ function Home() {
                       86400 *
                       (rewardDistributorData.data.parsed.defaultMultiplier.toNumber() /
                         10 **
-                        rewardDistributorData.data.parsed.multiplierDecimals)
+                          rewardDistributorData.data.parsed.multiplierDecimals)
                     ).toPrecision(4)}{' '}
                     <a
                       className="underline"
@@ -715,31 +740,34 @@ function Home() {
                 {!(
                   rewardDistributorData.isFetched && rewardMintInfo.isFetched
                 ) && (
-                    <>
-                      <span
-                        className={`${stakePoolMetadata?.colors?.fontColor
+                  <>
+                    <span
+                      className={`${
+                        stakePoolMetadata?.colors?.fontColor
                           ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
                           : 'text-gray-500'
-                          }`}
-                      >
-                        Loading rewards...
-                      </span>
-                      <div className="absolute w-full animate-pulse items-center justify-center rounded-lg bg-white bg-opacity-10 p-5"></div>
-                    </>
-                  )}
+                      }`}
+                    >
+                      Loading rewards...
+                    </span>
+                    <div className="absolute w-full animate-pulse items-center justify-center rounded-lg bg-white bg-opacity-10 p-5"></div>
+                  </>
+                )}
               </div>
             )}
           </div>
         )}
         <div className="my-2 mx-5 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div
-            className={`flex-col rounded-md p-10 ${stakePoolMetadata?.colors?.fontColor
-              ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-              : 'text-gray-200'
-              } ${stakePoolMetadata?.colors?.backgroundSecondary
+            className={`flex-col rounded-md p-10 ${
+              stakePoolMetadata?.colors?.fontColor
+                ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
+                : 'text-gray-200'
+            } ${
+              stakePoolMetadata?.colors?.backgroundSecondary
                 ? `bg-[${stakePoolMetadata?.colors?.backgroundSecondary}]`
                 : 'bg-white bg-opacity-5'
-              }`}
+            }`}
             style={{
               background: stakePoolMetadata?.colors?.backgroundSecondary,
               border: stakePoolMetadata?.colors?.accent
@@ -750,7 +778,7 @@ function Home() {
             <div className="mt-2 flex w-full flex-row justify-between">
               <div className="flex flex-row">
                 <p className="mb-3 mr-3 inline-block text-lg">
-                  Select Your Goats
+                  Select Your Goats To Stake
                 </p>
                 <div className="inline-block">
                   {allowedTokenDatas.isRefetching &&
@@ -766,8 +794,7 @@ function Home() {
                     )}
                 </div>
               </div>
-              <div className="flex flex-row">
-              </div>
+              <div className="flex flex-row"></div>
             </div>
             {showAllowedTokens && (
               <AllowedTokens stakePool={stakePool}></AllowedTokens>
@@ -782,13 +809,13 @@ function Home() {
                       stakePoolMetadata?.colors?.primary ?? '#000000'
                     )[1]
                       ? lighten(
-                        stakePoolMetadata?.colors?.backgroundSecondary,
-                        0.05
-                      )
+                          stakePoolMetadata?.colors?.backgroundSecondary,
+                          0.05
+                        )
                       : darken(
-                        stakePoolMetadata?.colors?.backgroundSecondary,
-                        0.05
-                      )),
+                          stakePoolMetadata?.colors?.backgroundSecondary,
+                          0.05
+                        )),
                 }}
               >
                 {!allowedTokenDatas.isFetched ? (
@@ -799,12 +826,14 @@ function Home() {
                   </div>
                 ) : (allowedTokenDatas.data || []).length == 0 ? (
                   <p
-                    className={`font-normal text-[${stakePoolMetadata?.colors?.fontColor
-                      ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-                      : 'text-gray-400'
-                      }]`}
+                    className={`font-normal text-[${
+                      stakePoolMetadata?.colors?.fontColor
+                        ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
+                        : 'text-gray-400'
+                    }]`}
                   >
-                    No allowed goats found in wallet.
+                    No Goats Rae Found For Staking.
+                    <br /> Grab Some Goats Marketplace
                   </p>
                 ) : (
                   <div
@@ -835,7 +864,7 @@ function Home() {
                               {loadingStake &&
                                 (isUnstakedTokenSelected(tk) ||
                                   singleTokenAction ===
-                                  tk.tokenAccount?.account.data.parsed.info.mint.toString()) && (
+                                    tk.tokenAccount?.account.data.parsed.info.mint.toString()) && (
                                   <div>
                                     <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-xl bg-black bg-opacity-80 align-middle text-white">
                                       <div className="my-auto flex">
@@ -872,13 +901,15 @@ function Home() {
                                 }
                               />
                               <div
-                                className={`flex-col rounded-b-xl p-2 ${stakePoolMetadata?.colors?.fontColor
-                                  ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-                                  : 'text-gray-200'
-                                  } ${stakePoolMetadata?.colors?.backgroundSecondary
+                                className={`flex-col rounded-b-xl p-2 ${
+                                  stakePoolMetadata?.colors?.fontColor
+                                    ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
+                                    : 'text-gray-200'
+                                } ${
+                                  stakePoolMetadata?.colors?.backgroundSecondary
                                     ? `bg-[${stakePoolMetadata?.colors?.backgroundSecondary}]`
                                     : 'bg-white bg-opacity-10'
-                                  }`}
+                                }`}
                                 style={{
                                   background:
                                     stakePoolMetadata?.colors
@@ -975,10 +1006,11 @@ function Home() {
                     >
                       <span className="sr-only">Receipt Type</span>
                       <span
-                        className={`${receiptType === ReceiptType.Original
-                          ? 'translate-x-6'
-                          : 'translate-x-1'
-                          } inline-block h-4 w-4 transform rounded-full bg-white`}
+                        className={`${
+                          receiptType === ReceiptType.Original
+                            ? 'translate-x-6'
+                            : 'translate-x-1'
+                        } inline-block h-4 w-4 transform rounded-full bg-white`}
                       />
                     </Switch>
                     <div className="flex items-center gap-1">
@@ -1038,8 +1070,9 @@ function Home() {
             </div>
           </div>
           <div
-            className={`rounded-md p-10 ${stakePoolMetadata?.colors?.fontColor ? '' : 'text-gray-200'
-              } bg-white bg-opacity-5`}
+            className={`rounded-md p-10 ${
+              stakePoolMetadata?.colors?.fontColor ? '' : 'text-gray-200'
+            } bg-white bg-opacity-5`}
             style={{
               background: stakePoolMetadata?.colors?.backgroundSecondary,
               border: stakePoolMetadata?.colors?.accent
@@ -1050,7 +1083,7 @@ function Home() {
             <div className="mb-5 flex flex-row justify-between">
               <div className="mt-2 flex flex-row">
                 <p className="mr-3 text-lg">
-                  View Staked Goats{' '}
+                  Staked Goats{' '}
                   {stakedTokenDatas.isFetched &&
                     stakedTokenDatas.data &&
                     `(${stakedTokenDatas.data.length})`}
@@ -1071,17 +1104,20 @@ function Home() {
               </div>
               <div className="flex flex-col justify-evenly">
                 {stakePool?.parsed.cooldownSeconds &&
-                  stakePool?.parsed.cooldownSeconds !== 0 ? (
+                stakePool?.parsed.cooldownSeconds !== 0 ? (
                   <div className="flex flex-col">
                     <p className="mr-3 text-sm">
-                      Cooldown Period: {stakePool?.parsed.cooldownSeconds} secs
+                      Cooldown Time After Unstaking{' '}
+                      {secondstoDurationformin(
+                        stakePool?.parsed.cooldownSeconds
+                      )}{' '}
                     </p>
                   </div>
                 ) : (
                   ''
                 )}
                 {stakePool?.parsed.minStakeSeconds &&
-                  stakePool?.parsed.minStakeSeconds !== 0 ? (
+                stakePool?.parsed.minStakeSeconds !== 0 ? (
                   <div className="flex flex-col">
                     <p className="mr-3 text-sm">
                       Minimum Stake Seconds: {stakePool?.parsed.minStakeSeconds}{' '}
@@ -1103,13 +1139,13 @@ function Home() {
                       stakePoolMetadata?.colors?.primary ?? '#000000'
                     )[1]
                       ? lighten(
-                        stakePoolMetadata?.colors?.backgroundSecondary,
-                        0.05
-                      )
+                          stakePoolMetadata?.colors?.backgroundSecondary,
+                          0.05
+                        )
                       : darken(
-                        stakePoolMetadata?.colors?.backgroundSecondary,
-                        0.05
-                      )),
+                          stakePoolMetadata?.colors?.backgroundSecondary,
+                          0.05
+                        )),
                 }}
               >
                 {!stakedTokenDatas.isFetched ? (
@@ -1120,12 +1156,13 @@ function Home() {
                   </div>
                 ) : stakedTokenDatas.data?.length === 0 ? (
                   <p
-                    className={`font-normal text-[${stakePoolMetadata?.colors?.fontColor
-                      ? ''
-                      : 'text-gray-400'
-                      }]`}
+                    className={`font-normal text-[${
+                      stakePoolMetadata?.colors?.fontColor
+                        ? ''
+                        : 'text-gray-400'
+                    }]`}
                   >
-                    No goats currently staked.
+                    None of Your Goat is Staked Now.
                   </p>
                 ) : (
                   <div
@@ -1154,7 +1191,7 @@ function Home() {
                                 {(loadingUnstake || loadingClaimRewards) &&
                                   (isStakedTokenSelected(tk) ||
                                     singleTokenAction ===
-                                    tk.stakeEntry?.parsed.originalMint.toString()) && (
+                                      tk.stakeEntry?.parsed.originalMint.toString()) && (
                                     <div>
                                       <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80 align-middle text-white">
                                         <div className="mx-auto flex items-center justify-center">
@@ -1170,21 +1207,21 @@ function Home() {
                                   )}
                                 {tk.stakeEntry?.parsed.lastStaker.toString() !==
                                   wallet.publicKey?.toString() && (
-                                    <div>
-                                      <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80  align-middle text-white">
-                                        <div className="mx-auto flex flex-col items-center justify-center">
-                                          <div>Owned by</div>
-                                          <DisplayAddress
-                                            dark
-                                            connection={connection}
-                                            address={
-                                              tk.stakeEntry?.parsed.lastStaker
-                                            }
-                                          />
-                                        </div>
+                                  <div>
+                                    <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80  align-middle text-white">
+                                      <div className="mx-auto flex flex-col items-center justify-center">
+                                        <div>Owned by</div>
+                                        <DisplayAddress
+                                          dark
+                                          connection={connection}
+                                          address={
+                                            tk.stakeEntry?.parsed.lastStaker
+                                          }
+                                        />
                                       </div>
                                     </div>
-                                  )}
+                                  </div>
+                                )}
                                 <QuickActions
                                   receiptType={receiptType}
                                   stakedTokenData={tk}
@@ -1212,14 +1249,16 @@ function Home() {
                                   }
                                 />
                                 <div
-                                  className={`flex-col rounded-b-xl p-2 ${stakePoolMetadata?.colors?.fontColor
-                                    ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-                                    : 'text-gray-200'
-                                    } ${stakePoolMetadata?.colors
+                                  className={`flex-col rounded-b-xl p-2 ${
+                                    stakePoolMetadata?.colors?.fontColor
+                                      ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
+                                      : 'text-gray-200'
+                                  } ${
+                                    stakePoolMetadata?.colors
                                       ?.backgroundSecondary
                                       ? `bg-[${stakePoolMetadata?.colors?.backgroundSecondary}]`
                                       : 'bg-white bg-opacity-10'
-                                    }`}
+                                  }`}
                                   style={{
                                     background:
                                       stakePoolMetadata?.colors
@@ -1233,7 +1272,7 @@ function Home() {
                                   <div className="mt-2">
                                     {tk.stakeEntry &&
                                       tk.stakeEntry.parsed.amount.toNumber() >
-                                      1 &&
+                                        1 &&
                                       rewardMintInfo.data && (
                                         <div className="flex w-full flex-row justify-between text-xs font-semibold">
                                           <span>Amount:</span>
@@ -1242,7 +1281,7 @@ function Home() {
                                               rewardMintInfo.data?.mintInfo
                                                 .decimals,
                                               tk.stakeEntry &&
-                                              tk.stakeEntry.parsed.amount,
+                                                tk.stakeEntry.parsed.amount,
                                               rewardMintInfo.data?.mintInfo
                                                 .decimals
                                             )}
@@ -1260,15 +1299,15 @@ function Home() {
                                                 .multiplierDecimals || 0,
                                               rewardEntries.data
                                                 ? rewardEntries.data.find(
-                                                  (entry) =>
-                                                    entry.parsed.stakeEntry.equals(
-                                                      tk.stakeEntry?.pubkey!
-                                                    )
-                                                )?.parsed.multiplier ||
-                                                rewardDistributorData.data
-                                                  .parsed.defaultMultiplier
+                                                    (entry) =>
+                                                      entry.parsed.stakeEntry.equals(
+                                                        tk.stakeEntry?.pubkey!
+                                                      )
+                                                  )?.parsed.multiplier ||
+                                                    rewardDistributorData.data
+                                                      .parsed.defaultMultiplier
                                                 : rewardDistributorData.data
-                                                  .parsed.defaultMultiplier,
+                                                    .parsed.defaultMultiplier,
                                               rewardDistributorData.data.parsed
                                                 .multiplierDecimals
                                             ).toString()}
@@ -1289,56 +1328,56 @@ function Home() {
                                                       .mintInfo,
                                                     rewardEntries.data
                                                       ? rewardDistributorData.data.parsed.rewardAmount
-                                                        .mul(
-                                                          rewardEntries.data.find(
-                                                            (entry) =>
-                                                              entry.parsed.stakeEntry.equals(
-                                                                tk.stakeEntry
-                                                                  ?.pubkey!
+                                                          .mul(
+                                                            rewardEntries.data.find(
+                                                              (entry) =>
+                                                                entry.parsed.stakeEntry.equals(
+                                                                  tk.stakeEntry
+                                                                    ?.pubkey!
+                                                                )
+                                                            )?.parsed
+                                                              .multiplier ||
+                                                              rewardDistributorData
+                                                                .data.parsed
+                                                                .defaultMultiplier
+                                                          )
+                                                          .div(
+                                                            new BN(10).pow(
+                                                              new BN(
+                                                                rewardDistributorData.data.parsed.multiplierDecimals
                                                               )
-                                                          )?.parsed
-                                                            .multiplier ||
-                                                          rewardDistributorData
-                                                            .data.parsed
-                                                            .defaultMultiplier
-                                                        )
-                                                        .div(
-                                                          new BN(10).pow(
-                                                            new BN(
-                                                              rewardDistributorData.data.parsed.multiplierDecimals
                                                             )
                                                           )
-                                                        )
                                                       : rewardDistributorData
-                                                        .data.parsed
-                                                        .rewardAmount
+                                                          .data.parsed
+                                                          .rewardAmount
                                                   )
                                                 ) /
                                                   rewardDistributorData.data.parsed.rewardDurationSeconds.toNumber()) *
                                                 86400 *
                                                 (rewardDistributorData.data.parsed.defaultMultiplier.toNumber() /
                                                   10 **
-                                                  rewardDistributorData.data
-                                                    .parsed
-                                                    .multiplierDecimals)
+                                                    rewardDistributorData.data
+                                                      .parsed
+                                                      .multiplierDecimals)
                                               ).toPrecision(
                                                 rewardDistributorData.data
                                                   .parsed.multiplierDecimals ||
-                                                4
+                                                  4
                                               )}
                                             </span>
                                           </div>
                                         )}
                                         {tk.stakeEntry && rewardMintInfo.data && (
                                           <div className="flex w-full flex-row justify-between text-xs font-semibold">
-                                            <span>Claim:</span>
+                                            <span>To Be Claim:</span>
                                             <span>
                                               {formatMintNaturalAmountAsDecimal(
                                                 rewardMintInfo.data.mintInfo,
                                                 rewards.data?.rewardMap[
                                                   tk.stakeEntry.pubkey.toString()
                                                 ]?.claimableRewards ||
-                                                new BN(0),
+                                                  new BN(0),
                                                 rewardMintInfo.data.mintInfo
                                                   .decimals
                                               ).toLocaleString()}
@@ -1347,8 +1386,8 @@ function Home() {
                                         )}
                                         {rewards.data &&
                                           rewards.data.rewardMap[
-                                          tk.stakeEntry?.pubkey.toString() ||
-                                          ''
+                                            tk.stakeEntry?.pubkey.toString() ||
+                                              ''
                                           ] &&
                                           rewardDistributorData.data?.parsed.rewardDurationSeconds.gte(
                                             new BN(60)
@@ -1359,9 +1398,9 @@ function Home() {
                                                 {secondstoDuration(
                                                   rewards.data.rewardMap[
                                                     tk.stakeEntry?.pubkey.toString() ||
-                                                    ''
+                                                      ''
                                                   ]?.nextRewardsIn.toNumber() ||
-                                                  0
+                                                    0
                                                 )}
                                               </span>
                                             </div>
@@ -1370,38 +1409,38 @@ function Home() {
                                     )}
                                     {tk.stakeEntry?.parsed
                                       .cooldownStartSeconds &&
-                                      stakePool?.parsed.cooldownSeconds ? (
+                                    stakePool?.parsed.cooldownSeconds ? (
                                       <div className="flex w-full flex-row justify-between text-xs font-semibold">
                                         <span>Cooldown:</span>
                                         {tk.stakeEntry?.parsed.cooldownStartSeconds.toNumber() +
                                           stakePool.parsed.cooldownSeconds -
                                           UTCNow >
-                                          0
+                                        0
                                           ? secondstoDuration(
-                                            tk.stakeEntry?.parsed.cooldownStartSeconds.toNumber() +
-                                            stakePool.parsed
-                                              .cooldownSeconds -
-                                            UTCNow
-                                          )
+                                              tk.stakeEntry?.parsed.cooldownStartSeconds.toNumber() +
+                                                stakePool.parsed
+                                                  .cooldownSeconds -
+                                                UTCNow
+                                            )
                                           : 'Finished!'}
                                       </div>
                                     ) : (
                                       ''
                                     )}
                                     {stakePool?.parsed.minStakeSeconds &&
-                                      tk.stakeEntry?.parsed.lastStakedAt ? (
+                                    tk.stakeEntry?.parsed.lastStakedAt ? (
                                       <div className="flex w-full flex-row justify-between text-xs font-semibold">
                                         <span>Min Time:</span>
                                         {tk.stakeEntry?.parsed.lastStakedAt.toNumber() +
                                           stakePool.parsed.minStakeSeconds -
                                           UTCNow >
-                                          0
+                                        0
                                           ? secondstoDuration(
-                                            tk.stakeEntry?.parsed.lastStakedAt.toNumber() +
-                                            stakePool.parsed
-                                              .minStakeSeconds -
-                                            UTCNow
-                                          )
+                                              tk.stakeEntry?.parsed.lastStakedAt.toNumber() +
+                                                stakePool.parsed
+                                                  .minStakeSeconds -
+                                                UTCNow
+                                            )
                                           : 'Satisfied'}
                                       </div>
                                     ) : (
@@ -1487,7 +1526,7 @@ function Home() {
                 </button>
               </MouseoverTooltip>
               {rewardDistributorData.data &&
-                rewards.data?.claimableRewards.gt(new BN(0)) ? (
+              rewards.data?.claimableRewards.gt(new BN(0)) ? (
                 <button
                   onClick={() => {
                     if (stakedSelected.length === 0) {
@@ -1521,7 +1560,7 @@ function Home() {
                     )}
                   </span>
                   <span className="my-auto">
-                    Claim $DANK ({stakedSelected.length})
+                    Claim $GOOFY ({stakedSelected.length})
                   </span>
                 </button>
               ) : (
@@ -1532,7 +1571,7 @@ function Home() {
         </div>
       </div>
       <Footer bgColor={stakePoolMetadata?.colors?.primary} />
-    </div >
+    </div>
   )
 }
 
