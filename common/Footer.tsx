@@ -2,8 +2,14 @@ import { darken, lighten } from 'polished'
 import { FaDiscord, FaGithub, FaMedium, FaTwitter } from 'react-icons/fa'
 
 const SOCIALS = {
-  discord: { icon: <FaDiscord />, link: 'https://discord.gg/bSZnKaD3YA' },
-  twitter: { icon: <FaTwitter />, link: 'https://twitter.com/stonedfarms' },
+  discord: {
+    icon: <FaDiscord />,
+    link: 'https://discord.com/invite/XVJ6UaqPKb',
+  },
+  twitter: {
+    icon: <FaTwitter />,
+    link: 'https://twitter.com/GoofyTheGoatNFT/',
+  },
 }
 
 export const Footer = ({
@@ -14,9 +20,7 @@ export const Footer = ({
   accentColor?: string
 }) => {
   return (
-    <div
-      className="mt-5 px-10 pt-5 pb-5 md:px-32 "
-    >
+    <div className="mt-5 px-10 pt-5 pb-5 md:px-32 ">
       <div className="flex w-full flex-wrap items-start justify-between gap-10 pt-10">
         <div className="flex gap-10 self-end text-center md:gap-20">
           <span className="flex flex-col items-start gap-1">
@@ -47,18 +51,14 @@ export const Footer = ({
           </span> */}
         </div>
       </div>
-      <div
-        className="text-md flex items-center justify-between border-t border-white py-4 text-gray-400 pt-8"
-      >
-        <div className="flex items-center justify-center gap-2 text-gray-400 -mt-1 z-50">
+      <div className="text-md flex items-center justify-between border-t border-white py-4 pt-8 text-gray-400">
+        <div className="z-50 -mt-1 flex items-center justify-center gap-2 text-gray-400">
           <a
             target="_blank"
-            href="https://stonedfarms.io/"
+            href="https://goofythegoat.com/"
             className="flex cursor-pointer text-xl font-semibold text-black hover:text-gray-300"
           >
-
-            <img className="h-16 w-42" src='SFFooterWhite.png' />
-
+            <img className="w-50 h-20" src="header.png" />
           </a>
         </div>
         <div className="flex gap-4 text-gray-100">
@@ -69,7 +69,7 @@ export const Footer = ({
                 href={link}
                 target="_blank"
                 rel="noreferrer"
-                className={`hover:text-primary text-white text-2xl opacity-100 transition-opacity hover:text-gray-200 z-50`}
+                className={`hover:text-primary z-50 text-2xl text-white opacity-100 transition-opacity hover:text-gray-200`}
               >
                 {icon}
               </a>
