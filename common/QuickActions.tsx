@@ -85,7 +85,7 @@ export const QuickActions = ({
           style={{
             background: lighten(
               0.07,
-              stakePoolMetadata?.colors?.primary || '#000'
+              stakePoolMetadata?.colors?.secondary || '#000'
             ),
             color: getColorByBgColor(
               stakePoolMetadata?.colors?.primary || '#000'
@@ -138,8 +138,8 @@ export const QuickActions = ({
                 target="_blank"
                 rel="noreferrer"
               >
-                Metadata
-                <AiOutlineDatabase />
+                Marketplace(ME)
+                <FiExternalLink />
               </a>
             </PopoverItem>
           )}
