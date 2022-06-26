@@ -39,7 +39,7 @@ export const Button = styled.button<ButtonProps>`
         `
       : variant === 'primary'
       ? css`
-          background: rgb(29, 155, 240);
+          background: linear-gradient(#e66465, #9198e5);;
           color: #fff;
           &:hover {
             background: ${!disabled && lighten(0.1, 'rgb(29, 155, 240)')}};
@@ -47,14 +47,14 @@ export const Button = styled.button<ButtonProps>`
         `
       : variant === 'secondary'
       ? css`
-          background: #000;
+          background: #000background: linear-gradient(#e66465, #9198e5);;
           color: #fff;
           &:hover {
             background: ${!disabled && lighten(0.1, '#000')};
           }
         `
       : css`
-          background: rgb(255, 255, 255, 0.15);
+          background: linear-gradient(#e66465, #9198e5);
           color: #fff;
           &:hover {
             background: ${!disabled && lighten(0.05, '#000')};
@@ -128,3 +128,5 @@ export const AsyncButton = ({
     </Button>
   )
 }
+
+
