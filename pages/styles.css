@@ -121,3 +121,18 @@ body {
 li.wallet-adapter-dropdown-list-item:hover {
   background: #998152 !important;
 }
+
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ece8e3;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c9ac8e;
+  border-radius: 20px;
+}
