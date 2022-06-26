@@ -29,8 +29,8 @@ export function pubKeyUrl(
   pubkey: PublicKey | null | undefined,
   cluster: string
 ) {
-  if (!pubkey) return 'https://explorer.solana.com'
-  return `https://explorer.solana.com/address/${pubkey.toString()}${
+  if (!pubkey) return 'https://solscan.io'
+  return `https://solscan.io/address/${pubkey.toString()}${
     cluster === 'devnet' ? '?cluster=devnet' : ''
   }`
 }
@@ -78,6 +78,27 @@ export function secondstoDuration(durationSeconds: number) {
   let duration = ''
   const optionalVals = [`${years}Y`, `${months}M`, `${weeks}w`, `${days}d`]
   const vals = [`${hours}h`, `${minutes}m`, `${seconds}s`]
+  for (const val of optionalVals) {
+    if (parseInt(val.substring(0, val.length - 1)) > 0) {
+      duration += val + ' '
+    }
+  }
+  for (const val of vals) {
+    duration += val + ' '
+  }
+  return duration
+}
+export function secondstoDurationformin(durationSeconds: number) {
+  const years = Math.floor(durationSeconds / 31536000)
+  const months = Math.floor((durationSeconds % 31536000) / 2592000)
+  const weeks = Math.floor((durationSeconds % 2592000) / 604800)
+  const days = Math.floor((durationSeconds % 604800) / 86400)
+  const hours = Math.floor((durationSeconds % 86400) / 3600)
+  const minutes = Math.floor((durationSeconds % 3600) / 60)
+  const seconds = Math.ceil(durationSeconds % 60)
+  let duration = ''
+  const optionalVals = [`${years}Y`, `${months}M`, `${weeks}w`, `${days}d`]
+  const vals = [`${minutes}m`, `${seconds}s`]
   for (const val of optionalVals) {
     if (parseInt(val.substring(0, val.length - 1)) > 0) {
       duration += val + ' '
